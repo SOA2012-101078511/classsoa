@@ -1,0 +1,164 @@
+﻿"Stacy".length
+5
+"     " .length = how many letters in there
+
+
+“stacy”*5
+=> "stacystacystacystacystacy"
+
+to_s converts things to strings.
+to_i converts things to integers (numbers.)
+to_a converts things to arrays.
+
+There is no method reverse for numbers in Ruby.
+so if you turn it into a string: 40.to_s.reverse.
+
+ a block is a bit of Ruby code surrounded by curly braces.
+5.times {prin¬t "Odel¬ay!" }
+=> "Odelay!Odelay!Odelay!Odelay!Odelay!"
+
+
+Hashes. The little dictionary with the curly pages: {}.
+Symbols. Tiny, efficient code words with a colon: :splendid.
+Blocks.  Here's the code you used to build a scorecard: books.values.each { |rate| ratings[rate] += 1 }.
+ 
+A Dir is a class to represent a directory stream that gives filenames in the directory in the operating system. Dir class also holds directory related operations, such as wild card filename matching, changing current working directory, etc. as class methods
+Dir.entrie¬s"/"
+=> [".", "..", "Home", "Libraries", "MouseHole", "Programs", "Tutorials", "comics.txt"]
+entries is a method called on the Dirvariable. And Dir has a collection of methods for checking out file directories.
+
+•	Dir.entries "/": Anything listed after a method is considered an attachment.
+•	print poem: See, print is an ordinary method. And the poem is attached. To be printed.
+•	print "pre", "event", "ual", "ism" has several arguments, with commas between them.
+ Dir["/*.tx¬t"]
+=> ["/comics.txt"]
+
+"I am looking for files which end with .txt."
+print File.¬read("/com¬ics.txt")
+=> "Achewood: http://achewood.com/
+Dinosaur Comics: http://qwantz.com/
+Perry Bible Fellowship: http://cheston.com/pbf/archive.html
+Get Your War On: http://mnftiu.cc/
+
+
+To add your own comic to the list, let's open the file in append mode.
+Start by entering this code: File.open("/Home/comics.txt", "a") do |f|
+f << "Cat and Girl:­ http:­//catandgi­rl.com/"
+end
+ 
+do...end
+
+
+You've added that new comic to the file.
+ You can see for your
+self: print File.read("/Home/comics.txt")
+
+
+The mtime gives you a Ruby Time object.
+If you want to check just what hour it was, hit the up arrow key and change the line to:
+File.mtime­("/Home/co­mics.txt")­.hour
+=> 2
+
+
+Files. What more can be said? Lots of methods for editing files and lookin around in directories.
+Arguments. Arguments are a list of things sent into a method. With commas between.
+We also spoke about do and end which are another way to make a block.
+
+
+You're making your own method. You started with def, followed by the name of the method. And a list of arguments which the method will need.
+ 
+def load_comics( path )
+  comics = {}
+  File.foreach(path) do |line|
+    name, url = line.split(': ')
+    comics[name] = url.strip
+  end
+  comics
+end
+
+
+A number of methods were used to get the job done. See if you can spot them.
+File.foreach is a method which opens a file and hands each line to the block. The line variable inside the do...end block took turns with each line in the file.
+split is a method for strings, which breaks the string up into an array. An axe is laid on the colon and the line is chopped in half, giving us the url and name for each comic.
+strip removes extra spaces around the name. Just in case.
+
+Type: require 'popup'
+loaded the popup library. It's saved in a file in the Libraries folder. See: Dir["/Libraries/*"]
+
+
+
+
+Popup.goto "http://ruby-lang.org"
+then will appear another page on Ruby
+
+Popup.make {
+  h1 "My Links"
+  link "Go to Ruby", "http://ruby-lang.org/"
+}
+
+The term h1 (h-one) means a level-one header. In HTML, this is the largest size of header.
+
+make a list with the popup library:
+
+Popup.make do
+  h1 "Things To Do"
+  list do
+    p "Try out Ruby"
+    p "Ride a tiger"
+    p "(down River Euphrates)"
+  end
+end
+
+The p method is short for "paragraph". When you want to move on
+
+
+you added your own method with def and you used that load_comics method several times.
+Libraries. You used the require method to load the popup library.
+By typing: require 'popup'
+And if that wasn't enough, you made your own web page from a list of comics in a file. You made a real program!
+
+
+the empty curly braces {} is a shortcut for Hash.new. The new method is used to make objects of a certain class. (Think "class" as in "working class" — a specific group of objects which are similar, have the same jobs, the same shirts.)
+
+
+
+To start an entry: entry = BlogEntry.new.
+<A class is like a person. That star-shaped human thing out there. And the attributes are the dangling limbs, the different parts that make up a body.>
+To set the title of your entry: entry.title = "Today Mt. Hood Was Stolen!"
+ 
+and set the post time: entry.time = Time.now
+And the mood: entry.mood = :sick
+And the post itself: entry.fulltext = "I can't believe Mt. Hood was stolen! I am speechless! It was stolen by a giraffe who drove away in his Cadillac Seville very nonchalant!!"
+To add an initialize method:
+class BlogEntry
+  def initialize( title, mood, fulltext )
+    @time = Time.now
+    @title, @mood, @fulltext = title, mood, fulltext
+  end
+end
+
+
+When a new BlogEntry is created, the initialize method is used to check for any arguments to new.
+Try it again with all three.
+entry2 = BlogEntry.new("I Left my Hoodie on the Mountain!", :confused, "I am never going back to that mountain and I hope a giraffe steals it.")
+
+
+Classes. Everything in Ruby is some kind of object. Classes explain objects. How a certain object works. For example, you made a few blog entry objects and these objects are explained in the BlogEntry class. In other words: you call them BlogEntry objects.
+Accessors are variables attached to an object which can be used outside the object. (entry.time = Time.now)
+Instance variables are the same variables you're using for accessors when inside the object. Like in a method definition. (@time = Time.now)
+
+
+Here's a few things you can do with your array blog:
+You'll want to sort your entries from newest to oldest. You can do this with: blog.sort_by { |entry| entry.time }.reverse 
+See the sort_by explanation for more.
+If you want to search your blog for anything related to "cadillac": blog.find_all { |entry| entry.fulltext.match(/cadillac/i) } 
+Read all about find_all and match to figure out how that works. Also: the slashy /giraffe/i is a Regexp object, used for matching words.
+Add new entries with blog << <new_entry> And check out the << method documentation.
+
+One really useful method (I probably use this more than anything else) is map.
+blog.map { |entry| entry.mood }
+ 
+ 
+The map method cycles through an array and replaces each item with something new.
+Say you wanted to replace each of your blog entries with the name Bruce Willis.
+Do it so: blog.map { "Bruce Willis" }
